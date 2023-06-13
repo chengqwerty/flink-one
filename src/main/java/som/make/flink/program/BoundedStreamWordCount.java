@@ -1,7 +1,9 @@
 package som.make.flink.program;
 
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
+import org.apache.flink.api.common.typeinfo.Types;
 import org.apache.flink.api.java.tuple.Tuple2;
+import org.apache.flink.api.java.typeutils.ResultTypeQueryable;
 import org.apache.flink.connector.file.src.FileSource;
 import org.apache.flink.connector.file.src.reader.TextLineInputFormat;
 import org.apache.flink.core.fs.Path;
@@ -29,7 +31,7 @@ public class BoundedStreamWordCount {
             for (String word : words) {
                 out.collect(Tuple2.of(word, 1L));
             }
-        });
+        }).returns(Types.TUPLE(Types.STRING, Types.LONG));
 
         // 分组
         KeyedStream<Tuple2<String, Long>, String> tuple2StringKeyedStream = tuple2SingleOutputStreamOperator.keyBy(data -> data.f0);
