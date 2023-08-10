@@ -3,6 +3,9 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+## maven
+dependency-reduced-pom.xml
+
 ### IntelliJ IDEA ###
 .idea/
 .idea/modules.xml
